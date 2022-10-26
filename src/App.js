@@ -25,8 +25,11 @@ function App() {
   const [lastSprintCapacity, setlastSprintCapacity] = useState('');
   const [lastSprintBurnDownPoints, setLastSprintBurnDownPoints] = useState('');
   const [lastSprintNoOfDevs, setLastSprintNoOfDevs] = useState('');
+  let [visible, setVisible] = useState(true);
   
-  
+  // visible = true;
+  const [team, setTeam] = useState('Batman');
+
   noOfsprintWeeks = '2';
 
   const handleSubmit = (event)=>{
@@ -49,11 +52,29 @@ function App() {
     sprintEndDate = endDate;
   }
 
+  const checkIfHistoricalDataExist = (team)=> {
+    console.log(`team value ${team}`);
+    if(team === 'Joker') {
+      setVisible(false)
+    }else {
+      setVisible(true)
+    }
+  }
+
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
       <label>Capacity Calculator</label>
+      </div>
+      <div>
+      <label htmlFor="team">
+          Select Team:
+          <select id="team" value={team} onChange={(e)=>{ setTeam(e.target.value); checkIfHistoricalDataExist(e.target.value)}}>
+            <option value="Batman">Batman</option>
+            <option value="Joker">Joker</option>
+          </select>
+        </label>
       </div>
       <div>
       <label>Current Sprint Capacity</label>
@@ -93,7 +114,7 @@ function App() {
         />
       </label>
       </div>
-      <div>
+      <div style={{ display: visible ? "block" : "none" }}>
         Last Sprint Details
         <br></br>
         <label htmlFor="PreviousSprintCapacity">
