@@ -1,0 +1,27 @@
+[
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 22,
+    "capacity": 65
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 25,
+    "capacity": 70
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 15,
+    "capacity": 60
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 24,
+    "capacity": 64
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 24,
+    "capacity": 62
+  }
+]
