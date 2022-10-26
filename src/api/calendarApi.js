@@ -5,7 +5,7 @@ const getHolidaysForTeam = (team, sprintStartDate, sprintEndDate) => {
     (e) =>
       e.categories.includes(team) &&
       sprintStartDate.getTime() <= new Date(e.start.dateTime).getTime() &&
-      new Date(e.end.dateTime).getTime() <= sprintEndDate
+      new Date(e.end.dateTime).getTime() <= sprintEndDate.getTime()
   );
 
   let daysOfHolidays = 0;
