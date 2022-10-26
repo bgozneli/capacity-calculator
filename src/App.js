@@ -17,37 +17,49 @@ function App() {
       storyPoints: 0,
       capacity: 0,
     },
+    team: 'Batman'
   };
-  const [noOfDevs, setNoOfDevs] = useState('');
+  const [noOfDevs, setNoOfDevs] = useState('0');
   let [sprintStartDate, setSprintStartDate] = useState('');
-  let [noOfsprintWeeks, setSprintWeeks] = useState('');
-  let [sprintEndDate] = useState('');
-  const [lastSprintCapacity, setlastSprintCapacity] = useState('');
-  const [lastSprintBurnDownPoints, setLastSprintBurnDownPoints] = useState('');
-  const [lastSprintNoOfDevs, setLastSprintNoOfDevs] = useState('');
+  let [noOfSprintWeeks, setSprintWeeks] = useState('2');
+  let [sprintEndDate, setSprintEndDate] = useState('');
+  const [lastSprintCapacity, setlastSprintCapacity] = useState('0');
+  const [lastSprintBurnDownPoints, setLastSprintBurnDownPoints] = useState('0');
+  const [lastSprintNoOfDevs, setLastSprintNoOfDevs] = useState('0');
+  const [team, setTeam] = useState('Batman');
+  const [visible, setVisible] = useState(true);
+  const [sprintVelocity, setSprintVelocity] = useState(0);
 
-
-  noOfsprintWeeks = '2';
 
   const handleSubmit = (event) => {
     event.preventDefault();
     state.currentSprintStats.noOfDevs = parseInt(noOfDevs);
-    state.currentSprintStats.noOfSprintWeeks = parseInt(noOfsprintWeeks);
+    state.currentSprintStats.noOfSprintWeeks = parseInt(noOfSprintWeeks);
     state.currentSprintStats.sprintStartDate = sprintStartDate;
-    calculateAndSetSprintEndDate(state.currentSprintStats.sprintStartDate);
+    //calculateAndSetSprintEndDate(state.currentSprintStats.sprintStartDate);
     state.currentSprintStats.sprintEndDate = sprintEndDate;
     state.previousSprintStats.capacity = parseInt(lastSprintCapacity);
     state.previousSprintStats.storyPoints = parseInt(lastSprintBurnDownPoints);
     state.previousSprintStats.numberOfPeople = parseInt(lastSprintNoOfDevs);
+    state.team = team;
     console.log(state);
+    setSprintVelocity(15);
   }
 
   const calculateAndSetSprintEndDate = (startDate) => {
     const weekToNoOfDayMap = config.weekToNoOfDayMap;
-    const endDate = dayjs(startDate).add(weekToNoOfDayMap[state.currentSprintStats.noOfSprintWeeks], 'day').format('DD.MM.YYYY');
+    const endDate = dayjs(startDate).add(weekToNoOfDayMap[noOfSprintWeeks], 'day').format('YYYY-MM-DD');
     state.currentSprintStats.sprintEndDate = endDate;
-    sprintEndDate = endDate;
-    console.log(endDate);
+    setSprintEndDate(endDate);
+  }
+
+  const checkIfHistoricalDataExist = (teamName)=> {
+    console.log(`team value ${teamName}`);
+    if(teamName === 'Joker') {
+      setVisible(false);
+    }else {
+      setVisible(true);
+    }
   }
 
 
@@ -55,12 +67,23 @@ function App() {
     <div className="container">
       <h1><b>Capacity Calculator</b></h1>
       <br />
+      <div className="mb-3">
+          <label htmlFor="team" className="form-label" >Select Team:</label>
+          <select id="team" value={team} onChange={(e) => { setTeam(e.target.value); checkIfHistoricalDataExist(e.target.value)}} className="form-select">
+            <option value="Batman">Batman</option>
+            <option value="Joker">Joker</option>
+            <option value="Thor">Thor</option>
+            <option value="Loki">Loki</option>
+            <option value="Groot">Groot</option>
+            <option value="Hulk">Hulk</option>
+          </select>
+        </div>
       <p><b>Current Sprint Capacity</b></p>
       <form onSubmit={handleSubmit}  >
 
         <div className="mb-3">
           <label htmlFor="sprintWeeks" className="form-label" >Sprint Weeks:</label>
-          <select id="sprintWeeks" value={noOfsprintWeeks} onChange={(e) => setSprintWeeks(e.target.value)} className="form-select">
+          <select id="sprintWeeks" value={noOfSprintWeeks} onChange={(e) => { setSprintWeeks(e.target.value);}} className="form-select">
             <option value="2">2 Weeks</option>
             <option value="3">3 Weeks</option>
           </select>
@@ -85,7 +108,8 @@ function App() {
             id="StartDate"
             type="date"
             value={sprintStartDate}
-            onChange={(e) => setSprintStartDate(e.target.value)}
+            min="{new Date()}"
+            onChange={(e) => { setSprintStartDate(e.target.value); calculateAndSetSprintEndDate(e.target.value)}}
           />
         </div>
 
@@ -102,6 +126,7 @@ function App() {
         </div>
 
         <br />
+        <div style={{ display: visible ? "block" : "none" }}>
         <p><b>Previous Sprint Details</b></p>
 
         <div className="mb-3">
@@ -139,8 +164,17 @@ function App() {
             onChange={(e) => setLastSprintNoOfDevs(e.target.value)}
           />
         </div>
+        </div>
         <input type="submit" value="Calculate" className="btn btn-primary mb-3" />
       </form>
+      <div className="row">
+        <div className="col-4"></div>
+        <div className="col-4 align-center">
+        <label className="form-label sprint-velocity-label">Sprint Velocity</label>
+        <div className="circle">{sprintVelocity}</div>
+        </div>
+        
+      </div>
     </div>
   )
 
