@@ -16,7 +16,7 @@ const getPublicHolidays = async (year) => {
 
 module.exports = getPublicHolidays;
 
-(async function () {
-  const result = await getPublicHolidays(2022);
-  console.log(result);
-})();
+// (async function () {
+//   const result = await getPublicHolidays(2022);
+//   console.log(result);
+// })();
