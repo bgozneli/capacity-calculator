@@ -1,0 +1,109 @@
+{
+  "value": [
+    {
+      "id": "AQMkAGI5MWY5ZmUyLTJiNzYtNDE0ZC04OWEwLWM3M2FjYmM3NwAzZWYARgAAA_b2VnUAiWNLj0xeSOs499YHAMT2RdsuOqRIlQZ4vOzp66YAAAIBDQAAAMT2RdsuOqRIlQZ4vOzp66YAAAIJOwAAAA==",
+      "categories": ["Batman"],
+      "subject": "Holiday - Berke",
+      "isCancelled": false,
+      "isAllDay": true,
+      "start": {
+        "dateTime": "2022-10-28T21:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "end": {
+        "dateTime": "2022-10-28T22:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "organizer": {
+        "emailAddress": {
+          "name": "Berke Gözneli",
+          "address": "HRTaskforce@contoso.onmicrosoft.com"
+        }
+      }
+    },
+    {
+      "id": "AQMkAGI5MWY5ZmUyLTJiNzYtNDE0ZC04OWEwLWM3M2FjYmM3NwAzZWYARgAAA_b2VnUAiWNLj0xeSOs499YHAMT2RdsuOqRIlQZ4vOzp66YAAAIBDQAAAMT2RdsuOqRIlQZ4vOzp66YAAAIJOwAAAA==",
+      "categories": ["Thor"],
+      "subject": "Holiday - Fran",
+      "isCancelled": false,
+      "isAllDay": true,
+      "start": {
+        "dateTime": "2022-11-5T21:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "end": {
+        "dateTime": "2022-11-7T22:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "organizer": {
+        "emailAddress": {
+          "name": "Berke Gözneli",
+          "address": "HRTaskforce@contoso.onmicrosoft.com"
+        }
+      }
+    },
+    {
+      "id": "AQMkAGI5MWY5ZmUyLTJiNzYtNDE0ZC04OWEwLWM3M2FjYmM3NwAzZWYARgAAA_b2VnUAiWNLj0xeSOs499YHAMT2RdsuOqRIlQZ4vOzp66YAAAIBDQAAAMT2RdsuOqRIlQZ4vOzp66YAAAIJOwAAAA==",
+      "categories": ["Thor"],
+      "subject": "Holiday - Nina",
+      "isCancelled": false,
+      "isAllDay": true,
+      "start": {
+        "dateTime": "2022-11-6T21:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "end": {
+        "dateTime": "2022-11-8T22:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "organizer": {
+        "emailAddress": {
+          "name": "Berke Gözneli",
+          "address": "HRTaskforce@contoso.onmicrosoft.com"
+        }
+      }
+    },
+    {
+      "id": "AQMkAGI5MWY5ZmUyLTJiNzYtNDE0ZC04OWEwLWM3M2FjYmM3NwAzZWYARgAAA_b2VnUAiWNLj0xeSOs499YHAMT2RdsuOqRIlQZ4vOzp66YAAAIBDQAAAMT2RdsuOqRIlQZ4vOzp66YAAAIJOwAAAA==",
+      "categories": ["Batman"],
+      "subject": "Holiday - Ira",
+      "isCancelled": false,
+      "isAllDay": true,
+      "start": {
+        "dateTime": "2022-11-5T21:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "end": {
+        "dateTime": "2022-11-7T22:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "organizer": {
+        "emailAddress": {
+          "name": "Berke Gözneli",
+          "address": "HRTaskforce@contoso.onmicrosoft.com"
+        }
+      }
+    },
+    {
+      "id": "AQMkAGI5MWY5ZmUyLTJiNzYtNDE0ZC04OWEwLWM3M2FjYmM3NwAzZWYARgAAA_b2VnUAiWNLj0xeSOs499YHAMT2RdsuOqRIlQZ4vOzp66YAAAIBDQAAAMT2RdsuOqRIlQZ4vOzp66YAAAIJOwAAAA==",
+      "categories": ["Thor"],
+      "subject": "Holiday - Piyush",
+      "isCancelled": false,
+      "isAllDay": true,
+      "start": {
+        "dateTime": "2022-11-4T21:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "end": {
+        "dateTime": "2022-11-5T22:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "organizer": {
+        "emailAddress": {
+          "name": "Berke Gözneli",
+          "address": "HRTaskforce@contoso.onmicrosoft.com"
+        }
+      }
+    }
+  ]
+}
