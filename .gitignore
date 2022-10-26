@@ -1,1 +1,7 @@
 node_modules
+
+###> IDEs ###
+/.idea/
+/.vscode/
+.DS_STORE
+###< IDEs ###
