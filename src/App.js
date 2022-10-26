@@ -44,9 +44,10 @@ function App() {
 
   const calculateAndSetSprintEndDate = (startDate) => {
     const weekToNoOfDayMap = config.weekToNoOfDayMap;
-    const endDate = dayjs(startDate).add(weekToNoOfDayMap[state.currentSprintStats.noOfSprintWeeks], 'day').format('YYYY-MM-DD');
+    const endDate = dayjs(startDate).add(weekToNoOfDayMap[state.currentSprintStats.noOfSprintWeeks], 'day').format('DD.MM.YYYY');
     state.currentSprintStats.sprintEndDate = endDate;
     sprintEndDate = endDate;
+    console.log(endDate);
   }
 
 
