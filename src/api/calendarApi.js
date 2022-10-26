@@ -1,8 +1,11 @@
 const calendarDb = require("../db/calendarDB.json");
 
-const getHolidaysForTeam = (team) => {
-  const teamHolidays = calendarDb.value.filter((e) =>
-    e.categories.includes(team)
+const getHolidaysForTeam = (team, sprintStartDate, sprintEndDate) => {
+  const teamHolidays = calendarDb.value.filter(
+    (e) =>
+      e.categories.includes(team) &&
+      sprintStartDate.getTime() <= new Date(e.start.dateTime).getTime() &&
+      new Date(e.end.dateTime).getTime() <= sprintEndDate
   );
 
   let daysOfHolidays = 0;
