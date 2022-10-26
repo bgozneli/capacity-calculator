@@ -8,7 +8,10 @@ const getPublicHolidays = async (year) => {
   const bavarianPublicHolidays = data.filter(
     (holiday) => holiday.counties === null || holiday.counties.includes("DE-BY")
   );
-  return bavarianPublicHolidays;
+  const bavarianPublicHolidaysOnWeekdays = bavarianPublicHolidays.filter(
+    (holiday) => new Date(holiday.date).getDay() <= 5
+  );
+  return bavarianPublicHolidaysOnWeekdays;
 };
 
 export default getPublicHolidays;
