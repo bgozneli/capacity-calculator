@@ -17,9 +17,7 @@ const calculate = async(request) => {
     const bsp = bspSum/teamMembers;
     const totalLastSprintCapacity = totalSprintCapacitySum/teamMembers;
 
-    const x = ((teamMembers * (14 - publicHolidayCount) - request.vacationDays)* bsp)/ totalLastSprintCapacity;
-
-    console.log(x);
+    return Math.round((((teamMembers * (14 - publicHolidayCount) - request.vacationDays)* bsp)/ totalLastSprintCapacity) * 10) / 10;
 }
 
 function countIterationHolidays(startDate, weeks, holidays){
@@ -43,4 +41,6 @@ function addWeeks(weekNo, start, date = new Date()){
 }
 
 // to be removed just here for testing
-calculate({vacationDays: 10,sprintStartDate: '2022-10-27', noOfSprintWeeks: 3});
+calculate({vacationDays: 10, sprintStartDate: '2022-10-27', noOfSprintWeeks: 3}).then((result)=>{
+    console.log(result);
+});
