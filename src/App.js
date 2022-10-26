@@ -44,43 +44,44 @@ function App() {
 
   const calculateAndSetSprintEndDate = (startDate) => {
     const weekToNoOfDayMap = config.weekToNoOfDayMap;
-    const endDate = dayjs(startDate).add(weekToNoOfDayMap[state.currentSprintStats.noOfSprintWeeks], 'day').format('YYYY-MM-DD');
+    const endDate = dayjs(startDate).add(weekToNoOfDayMap[state.currentSprintStats.noOfSprintWeeks], 'day').format('DD.MM.YYYY');
     state.currentSprintStats.sprintEndDate = endDate;
     sprintEndDate = endDate;
+    console.log(endDate);
   }
 
 
   return (
-    <div class="container">
+    <div className="container">
       <h1><b>Capacity Calculator</b></h1>
       <br />
       <p><b>Current Sprint Capacity</b></p>
       <form onSubmit={handleSubmit}  >
 
-        <div class="mb-3">
-          <label htmlFor="sprintWeeks" for="sprintWeeks" class="form-label" >Sprint Weeks:</label>
-          <select id="sprintWeeks" value={noOfsprintWeeks} onChange={(e) => setSprintWeeks(e.target.value)} class="form-select">
+        <div className="mb-3">
+          <label htmlFor="sprintWeeks" className="form-label" >Sprint Weeks:</label>
+          <select id="sprintWeeks" value={noOfsprintWeeks} onChange={(e) => setSprintWeeks(e.target.value)} className="form-select">
             <option value="2">2 Weeks</option>
             <option value="3">3 Weeks</option>
           </select>
         </div>
 
-        <div class="mb-3">
-          <label for="DevsCount" class="form-label">Number of engineers:</label>
+        <div className="mb-3">
+          <label htmlFor="DevsCount" className="form-label">Number of engineers:</label>
           <input
             id="DevsCount"
             type="number"
             min="0"
-            class="form-control"
+            className="form-control"
             value={noOfDevs}
             onChange={(e) => setNoOfDevs(e.target.value)}
           />
         </div>
 
-        <div class="mb-3">
-          <label for="StartDate" class="form-label">Start Date:</label>
+        <div className="mb-3">
+          <label htmlFor="StartDate" className="form-label">Start Date:</label>
           <input
-            class="form-control"
+            className="form-control"
             id="StartDate"
             type="date"
             value={sprintStartDate}
@@ -89,11 +90,11 @@ function App() {
         </div>
 
 
-        <div class="mb-3">
-          <label for="endDate" class="form-label">End Date:</label>
+        <div className="mb-3">
+          <label htmlFor="endDate" className="form-label">End Date:</label>
           <input
             id="endDate"
-            class="form-control"
+            className="form-control"
             disabled
             type="date"
             value={sprintEndDate}
@@ -103,10 +104,10 @@ function App() {
         <br />
         <p><b>Previous Sprint Details</b></p>
 
-        <div class="mb-3">
-          <label for="PreviousSprintCapacity" class="form-label">Sprint Capacity:</label>
+        <div className="mb-3">
+          <label htmlFor="PreviousSprintCapacity" className="form-label">Sprint Capacity:</label>
           <input
-            class="form-control"
+            className="form-control"
             id="PreviousSprintCapacity"
             type="number"
             min="0"
@@ -115,10 +116,10 @@ function App() {
           />
         </div>
 
-        <div class="mb-3">
-          <label for="PreviousSprintBurnDownPoints" class="form-label">BurnDown Points:</label>
+        <div className="mb-3">
+          <label htmlFor="PreviousSprintBurnDownPoints" className="form-label">BurnDown Points:</label>
           <input
-            class="form-control"
+            className="form-control"
             id="PreviousSprintBurnDownPoints"
             type="number"
             min="0"
@@ -127,10 +128,10 @@ function App() {
           />
         </div>
 
-        <div class="mb-3">
-          <label for="PreviousSprintNoOfDevs" class="form-label">Number of engineers:</label>
+        <div className="mb-3">
+          <label htmlFor="PreviousSprintNoOfDevs" className="form-label">Number of engineers:</label>
           <input
-            class="form-control"
+            className="form-control"
             id="PreviousSprintNoOfDevs"
             type="number"
             min="0"
@@ -138,8 +139,7 @@ function App() {
             onChange={(e) => setLastSprintNoOfDevs(e.target.value)}
           />
         </div>
-
-        <input type="submit" value="Calculate" class="btn btn-primary mb-3" />
+        <input type="submit" value="Calculate" className="btn btn-primary mb-3" />
       </form>
     </div>
   )
