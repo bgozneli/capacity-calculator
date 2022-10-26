@@ -1,4 +1,4 @@
-import axios from "axios";
+const axios = require("axios");
 
 const getPublicHolidays = async (year) => {
   const { data } = await axios({
@@ -14,9 +14,9 @@ const getPublicHolidays = async (year) => {
   return bavarianPublicHolidaysOnWeekdays;
 };
 
-export default getPublicHolidays;
+module.exports = getPublicHolidays;
 
-// (async function () {
-//   const result = await getPublicHolidays(2022);
-//   console.log(result);
-// })();
+(async function () {
+  const result = await getPublicHolidays(2022);
+  console.log(result);
+})();
