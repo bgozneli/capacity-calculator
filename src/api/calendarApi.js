@@ -14,7 +14,7 @@ const getHolidaysForTeam = (team, sprintStartDate, sprintEndDate) => {
       (new Date(holiday.end.dateTime).getTime() -
         new Date(holiday.start.dateTime).getTime()) /
       (1000 * 3600 * 24);
-    return (daysOfHolidays += days);
+    daysOfHolidays = daysOfHolidays + days;
   });
   console.log("Days Of Holidays", daysOfHolidays);
   return daysOfHolidays;
