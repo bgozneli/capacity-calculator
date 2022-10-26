@@ -70,11 +70,11 @@
       "isCancelled": false,
       "isAllDay": true,
       "start": {
-        "dateTime": "2022-11-5T21:00:00.0000000",
+        "dateTime": "2022-11-5T00:00:00.0000000",
         "timeZone": "UTC"
       },
       "end": {
-        "dateTime": "2022-11-7T22:00:00.0000000",
+        "dateTime": "2022-11-7T00:00:00.0000000",
         "timeZone": "UTC"
       },
       "organizer": {
@@ -86,16 +86,16 @@
     },
     {
       "id": "AQMkAGI5MWY5ZmUyLTJiNzYtNDE0ZC04OWEwLWM3M2FjYmM3NwAzZWYARgAAA_b2VnUAiWNLj0xeSOs499YHAMT2RdsuOqRIlQZ4vOzp66YAAAIBDQAAAMT2RdsuOqRIlQZ4vOzp66YAAAIJOwAAAA==",
-      "categories": ["Thor"],
+      "categories": ["Batman"],
       "subject": "Holiday - Piyush",
       "isCancelled": false,
       "isAllDay": true,
       "start": {
-        "dateTime": "2022-11-4T21:00:00.0000000",
+        "dateTime": "2022-11-4T00:00:00.0000000",
         "timeZone": "UTC"
       },
       "end": {
-        "dateTime": "2022-11-5T22:00:00.0000000",
+        "dateTime": "2022-11-5T00:00:00.0000000",
         "timeZone": "UTC"
       },
       "organizer": {

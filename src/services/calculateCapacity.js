@@ -1,31 +1,35 @@
 const getPublicHolidays = require("../api/publicHolidayApi");
+const getHolidaysForTeam = require("../api/calendarApi");
 const db = require("../db/historical.json");
 
 const calculate = async (request) => {
     let totalSprintCapacitySum = request.previousSprintStats.capacity;
     let bspSum = request.previousSprintStats.storyPoints;
-    let dbLength = db.length + 1;
     const teamMembers = request.currentSprintStats.noOfDevs;
+    let filteredDb = db.filter((history) => history.team === request.team
+    );
+    let dbLength = filteredDb.length + 1;
 
     const publicHoliday = await getPublicHolidays(new Date().getFullYear());
-    const publicHolidayCount = countIterationHolidays(
+    const teamDaysOff = countIterationHolidays(
         request.currentSprintStats.sprintStartDate,
         request.currentSprintStats.noOfSprintWeeks,
-        publicHoliday
+        publicHoliday,
+        request.team
     );
 
-    db.forEach(function (item) {
+    filteredDb.forEach(function (item) {
         bspSum += item.storyPoints
         totalSprintCapacitySum += item.capacity;
     });
 
-    const bsp = bspSum/dbLength;
+    const bsp = bspSum / dbLength;
     const totalLastSprintCapacity = totalSprintCapacitySum / dbLength;
 
-    return Math.round((((teamMembers * (14 - publicHolidayCount) - request.currentSprintStats.vacationDays) * bsp) / totalLastSprintCapacity) * 10) / 10;
+    return Math.round((((teamMembers * (14 - teamDaysOff.publicHolidaysCount) - teamDaysOff.teamVacationDaysCount) * bsp) / totalLastSprintCapacity) * 10) / 10;
 }
 
-function countIterationHolidays(startDate, weeks, holidays) {
+function countIterationHolidays(startDate, weeks, holidays, team) {
     const start = new Date(startDate);
     const endDate = addWeeks(weeks, start);
     let holidaysCount = 0;
@@ -37,7 +41,10 @@ function countIterationHolidays(startDate, weeks, holidays) {
         }
     });
 
-    return holidaysCount;
+    return {
+        publicHolidaysCount: holidaysCount,
+        teamVacationDaysCount: getHolidaysForTeam(team, start, endDate)
+    };
 }
 
 function addWeeks(weekNo, start, date = new Date()) {
@@ -46,9 +53,8 @@ function addWeeks(weekNo, start, date = new Date()) {
 }
 
 // to be removed just here for testing
-calculate( {
+calculate({
     currentSprintStats: {
-        vacationDays: 10,
         sprintStartDate: '2022-10-27',
         noOfSprintWeeks: 3,
         noOfDevs: 5
@@ -57,7 +63,8 @@ calculate( {
         numberOfPeople: 5,
         storyPoints: 15,
         capacity: 60
-    }
+    },
+    team: "Batman"
 }).then((result) => {
     console.log(result);
 });
