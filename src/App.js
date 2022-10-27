@@ -29,7 +29,6 @@ function App() {
       storyPoints: 0,
       capacity: 0,
     },
- //   team: "Batman",
   };
 
 
@@ -49,7 +48,7 @@ function App() {
   useEffect(() => {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl));
-// checkIfHistoricalDataExist(team);
+    document.title = 'RoadRunners | Sprint Capacity Calculator';
   });
 
 
@@ -58,7 +57,6 @@ function App() {
     state.currentSprintStats.noOfDevs = parseInt(noOfDevs);
     state.currentSprintStats.noOfSprintWeeks = parseInt(noOfSprintWeeks);
     state.currentSprintStats.sprintStartDate = sprintStartDate;
-    //calculateAndSetSprintEndDate(state.currentSprintStats.sprintStartDate);
     state.currentSprintStats.sprintEndDate = sprintEndDate;
     state.previousSprintStats.capacity = parseInt(lastSprintCapacity);
     state.previousSprintStats.storyPoints = parseInt(lastSprintBurnDownPoints);
