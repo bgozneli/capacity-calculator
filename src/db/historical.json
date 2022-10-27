@@ -28,5 +28,65 @@
     "storyPoints": 24,
     "capacity": 62,
     "team": "Batman"
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 15,
+    "capacity": 33,
+    "team": "Batman"
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 12,
+    "capacity": 65,
+    "team": "Batman"
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 8,
+    "capacity": 65,
+    "team": "Batman"
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 32,
+    "capacity": 65,
+    "team": "Batman"
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 28,
+    "capacity": 65,
+    "team": "Batman"
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 18,
+    "capacity": 65,
+    "team": "Batman"
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 21,
+    "capacity": 60,
+    "team": "Thor"
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 4,
+    "capacity": 60,
+    "team": "Thor"
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 18,
+    "capacity": 60,
+    "team": "Thor"
+  },
+  {
+    "numberOfPeople": 5,
+    "storyPoints": 32,
+    "capacity": 60,
+    "team": "Thor"
   }
 ]

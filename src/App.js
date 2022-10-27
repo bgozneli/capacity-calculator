@@ -3,6 +3,16 @@ import Table from 'react-bootstrap/Table';
 import dayjs from "dayjs";
 import * as config from "./config/index";
 import { Tooltip } from 'bootstrap';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
 const historicalDb = require("./db/historical.json");
 const calculateCapacity = require('./services/calculateCapacity');
 
@@ -21,6 +31,7 @@ function App() {
     },
  //   team: "Batman",
   };
+
 
   const [noOfDevs, setNoOfDevs] = useState("0");
   let [sprintStartDate, setSprintStartDate] = useState("");
@@ -82,6 +93,7 @@ function App() {
   };
 
 
+
   const renderHistoricalDataTable = () => {
     const rows = historicalData.map((record) => {
       return (
@@ -93,7 +105,29 @@ function App() {
         </tr>
       )
     });
+
+
+    const labels = [];
+    let counter = 0;
+    const dataset = historicalData.map((record) => {
+      labels.push('Sprint ' + (counter + 1));
+      counter++;
+      return record.storyPoints;
+    });
+
+    const data = {
+     labels,
+     datasets: [
+       {
+         label: 'Sprint',
+         data: dataset,
+         backgroundColor: 'rgba(128, 156, 230, 0.5)',
+       },
+     ],
+   };
+
     return (
+      <div>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -107,9 +141,32 @@ function App() {
           {rows}
         </tbody>
       </Table>
+      <Bar options={options} data={data} />
+      <br/>
+    </div>
     );
   }
+  
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Legend
+  );
 
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: "Sprint Histogram for " + team,
+      },
+    },
+  };
 
   return (
     <div className="container">
