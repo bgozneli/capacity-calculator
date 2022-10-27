@@ -54,20 +54,20 @@ function addWeeks(weekNo, start, date = new Date()) {
 }
 
 // to be removed just here for testing
-calculate({
-    currentSprintStats: {
-        sprintStartDate: '2022-10-27',
-        noOfSprintWeeks: 3,
-        noOfDevs: 5
-    },
-    previousSprintStats: {
-        numberOfPeople: 5,
-        storyPoints: 15,
-        capacity: 60
-    },
-    team: "Groot"
-}).then((result) => {
-    console.log(result);
-});
+// calculate({
+//     currentSprintStats: {
+//         sprintStartDate: '2022-10-27',
+//         noOfSprintWeeks: 3,
+//         noOfDevs: 5
+//     },
+//     previousSprintStats: {
+//         numberOfPeople: 5,
+//         storyPoints: 15,
+//         capacity: 60
+//     },
+//     team: "Groot"
+// }).then((result) => {
+//     console.log(result);
+// });
 
-// module.exports = calculate;
+module.exports = calculate;
