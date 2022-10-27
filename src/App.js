@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import dayjs from "dayjs";
 import * as config from "./config/index";
+const historicalDb = require("./db/historical.json");
 
 function App() {
   const state = {
@@ -28,6 +29,7 @@ function App() {
   const [team, setTeam] = useState("Batman");
   const [visible, setVisible] = useState(true);
   const [sprintVelocity, setSprintVelocity] = useState(0);
+  useEffect(() => checkIfHistoricalDataExist(team));
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,7 +57,10 @@ function App() {
 
   const checkIfHistoricalDataExist = (teamName) => {
     console.log(`team value ${teamName}`);
-    if (teamName === "Joker") {
+    const historicalDataExists = historicalDb.find(
+      (data) => data.team === teamName
+    );
+    if (historicalDataExists) {
       setVisible(false);
     } else {
       setVisible(true);
