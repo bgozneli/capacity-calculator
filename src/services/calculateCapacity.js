@@ -1,10 +1,11 @@
 const getPublicHolidays = require("../api/publicHolidayApi");
 const getHolidaysForTeam = require("../api/calendarApi");
+const getBurntDownSprintInformationForTeam = require("../api/jiraApi");
 const db = require("../db/historical.json");
 
 const calculate = async (request) => {
     let totalSprintCapacitySum = request.previousSprintStats.capacity;
-    let bspSum = request.previousSprintStats.storyPoints;
+    let bspSum = await getBurntDownSprintInformationForTeam(request.team) + request.previousSprintStats.storyPoints;
     const teamMembers = request.currentSprintStats.noOfDevs;
     let filteredDb = db.filter((history) => history.team === request.team
     );
@@ -53,20 +54,20 @@ function addWeeks(weekNo, start, date = new Date()) {
 }
 
 // to be removed just here for testing
-// calculate({
-//     currentSprintStats: {
-//         sprintStartDate: '2022-10-27',
-//         noOfSprintWeeks: 3,
-//         noOfDevs: 5
-//     },
-//     previousSprintStats: {
-//         numberOfPeople: 5,
-//         storyPoints: 15,
-//         capacity: 60
-//     },
-//     team: "Batman"
-// }).then((result) => {
-//     console.log(result);
-// });
+calculate({
+    currentSprintStats: {
+        sprintStartDate: '2022-10-27',
+        noOfSprintWeeks: 3,
+        noOfDevs: 5
+    },
+    previousSprintStats: {
+        numberOfPeople: 5,
+        storyPoints: 15,
+        capacity: 60
+    },
+    team: "Groot"
+}).then((result) => {
+    console.log(result);
+});
 
-module.exports = calculate;
+// module.exports = calculate;

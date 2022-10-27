@@ -31,10 +31,10 @@ const getBurntDownSprintInformationForTeam = async (team) => {
     },
   });
   let totalBurntStoryPoints = 0;
-  console.log(data);
+  // console.log(data);
   data.issues.forEach((issue) => {
     if (issue.fields.customfield_10002) {
-      console.log(totalBurntStoryPoints);
+      // console.log(totalBurntStoryPoints);
       totalBurntStoryPoints =
         totalBurntStoryPoints + issue.fields.customfield_10002;
     }
