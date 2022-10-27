@@ -113,9 +113,9 @@ function App() {
       </h1>
       <br />
       <div className="mb-3">
-        <label htmlFor="team" className="form-label">
-          Select Team:
-        </label>
+        <p>
+          <b>Select Team</b>
+        </p>
         <select
           id="team"
           value={team}
@@ -203,6 +203,9 @@ function App() {
 
         <br />
         <div style={{ display: visible ? "block" : "none" }} >
+        <p>
+            <b>Historical Sprint Metrics</b>
+          </p>
        {renderHistoricalDataTable()}
         </div>
         <div>
