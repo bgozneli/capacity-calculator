@@ -109,7 +109,7 @@ function App() {
   return (
     <div className="container">
       <h1>
-        <b>Capacity Calculator</b>
+        <b>Sprint Capacity Calculator</b>
       </h1>
       <br />
       <div className="mb-3">
