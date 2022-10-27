@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import Table from 'react-bootstrap/Table';
 import dayjs from "dayjs";
 import * as config from "./config/index";
 import { Tooltip } from 'bootstrap';
 const historicalDb = require("./db/historical.json");
+const calculateCapacity = require('./services/calculateCapacity');
 
 function App() {
   const state = {
@@ -27,11 +29,12 @@ function App() {
   const [lastSprintBurnDownPoints, setLastSprintBurnDownPoints] = useState("0");
   const [lastSprintNoOfDevs, setLastSprintNoOfDevs] = useState("0");
   const [team, setTeam] = useState("Batman");
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [sprintVelocity, setSprintVelocity] = useState(0);
+  const [historicalData, setHistoricalData] = useState([]);
   useEffect(() => checkIfHistoricalDataExist(team));
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     state.currentSprintStats.noOfDevs = parseInt(noOfDevs);
     state.currentSprintStats.noOfSprintWeeks = parseInt(noOfSprintWeeks);
@@ -42,8 +45,9 @@ function App() {
     state.previousSprintStats.storyPoints = parseInt(lastSprintBurnDownPoints);
     state.previousSprintStats.numberOfPeople = parseInt(lastSprintNoOfDevs);
     state.team = team;
+    const value = await calculateCapacity(state);
     console.log(state);
-    setSprintVelocity(15);
+    setSprintVelocity(value);
   };
 
   const calculateAndSetSprintEndDate = (startDate) => {
@@ -57,15 +61,45 @@ function App() {
 
   const checkIfHistoricalDataExist = (teamName) => {
     console.log(`team value ${teamName}`);
+    const historicalRecords = historicalDb.filter((record)=> record.team === teamName);
+    setHistoricalData(historicalRecords);
     const historicalDataExists = historicalDb.find(
       (data) => data.team === teamName
     );
     if (historicalDataExists) {
-      setVisible(false);
-    } else {
       setVisible(true);
+    } else {
+      setVisible(false);
     }
   };
+
+  const renderHistoricalDataTable = ()=>{
+    const rows = historicalData.map((record)=>{
+      return (
+        <tr>
+          <td>{record.numberOfPeople}</td>
+          <td>{record.storyPoints}</td>
+          <td>{record.capacity}</td>
+          <td>{record.team}</td>
+        </tr>
+      )
+    });
+    return (
+    <Table striped bordered hover>
+      <thead>
+        <tr>
+        <th>No of Devs</th>
+        <th>BurnDown Points(Total amount of achieved story points)</th>
+        <th>Capacity</th>
+        <th>Team</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows}
+      </tbody>
+    </Table>
+    );
+  }
 
   useEffect(() => {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -168,7 +202,10 @@ function App() {
         </div>
 
         <br />
-        <div style={{ display: visible ? "block" : "none" }}>
+        <div style={{ display: visible ? "block" : "none" }} >
+       {renderHistoricalDataTable()}
+        </div>
+        <div>
           <p>
             <b>Previous Sprint Details</b>
           </p>

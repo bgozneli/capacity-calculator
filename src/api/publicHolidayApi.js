@@ -1,10 +1,12 @@
 const axios = require("axios");
 
 const getPublicHolidays = async (year) => {
-  const { data } = await axios({
-    method: "get",
-    url: `https://date.nager.at/api/v3/publicholidays/${year}/DE`,
-  });
+  // const { data } = await axios({
+  //   method: "get",
+  //   url: `https://date.nager.at/api/v3/publicholidays/${year}/DE`,
+  // });
+  const response  = await fetch(`https://date.nager.at/api/v3/publicholidays/${year}/DE`);
+  const data = await response.json();
   const bavarianPublicHolidays = data.filter(
     (holiday) => holiday.counties === null || holiday.counties.includes("DE-BY")
   );
