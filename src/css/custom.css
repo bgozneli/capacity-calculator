@@ -5,7 +5,7 @@
     text-align: center;
     font-size: 60px;
     border: 3px solid rgba(0, 0, 0, 0.371);
-    
+
   }
 
 .sprint-velocity-label {
@@ -15,5 +15,10 @@
 
 .align-center {
     padding-left:100px;
+}
+
+.header-pad {
+    padding-left: 70px;
+    font-style: normal;
 }
 

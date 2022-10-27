@@ -168,9 +168,18 @@ function App() {
 
   return (
     <div className="container">
+      <div className="row">
+      <div className="col-3"></div>
+      <div className="col-9 header-pad">
       <h1>
         <b>Sprint Capacity Calculator</b>
       </h1>
+      </div>
+      </div>
+      
+      {/* <h1>
+        <b>Sprint Capacity Calculator</b>
+      </h1> */}
       <br />
       <div className="mb-3">
         <p>
