@@ -107,6 +107,9 @@ function App() {
             value={noOfSprintWeeks}
             onChange={(e) => {
               setSprintWeeks(e.target.value);
+              if (sprintStartDate) {
+                calculateAndSetSprintEndDate(e.target.value);
+              }
             }}
             className="form-select"
           >
