@@ -19,8 +19,9 @@ function App() {
       storyPoints: 0,
       capacity: 0,
     },
-    team: "Batman",
+ //   team: "Batman",
   };
+
   const [noOfDevs, setNoOfDevs] = useState("0");
   let [sprintStartDate, setSprintStartDate] = useState("");
   let [noOfSprintWeeks, setSprintWeeks] = useState("2");
@@ -28,11 +29,18 @@ function App() {
   const [lastSprintCapacity, setlastSprintCapacity] = useState("0");
   const [lastSprintBurnDownPoints, setLastSprintBurnDownPoints] = useState("0");
   const [lastSprintNoOfDevs, setLastSprintNoOfDevs] = useState("0");
-  const [team, setTeam] = useState("Batman");
+  const [team, setTeam] = useState("");
   const [visible, setVisible] = useState(false);
   const [sprintVelocity, setSprintVelocity] = useState(0);
   const [historicalData, setHistoricalData] = useState([]);
-  useEffect(() => checkIfHistoricalDataExist(team));
+
+
+  useEffect(() => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl));
+// checkIfHistoricalDataExist(team);
+  });
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -60,8 +68,8 @@ function App() {
   };
 
   const checkIfHistoricalDataExist = (teamName) => {
-    console.log(`team value ${teamName}`);
-    const historicalRecords = historicalDb.filter((record)=> record.team === teamName);
+    // console.log(`team value ${teamName}`);
+    const historicalRecords = historicalDb.filter((record) => record.team === teamName);
     setHistoricalData(historicalRecords);
     const historicalDataExists = historicalDb.find(
       (data) => data.team === teamName
@@ -73,8 +81,10 @@ function App() {
     }
   };
 
-  const renderHistoricalDataTable = ()=>{
-    const rows = historicalData.map((record)=>{
+
+
+  const renderHistoricalDataTable = () => {
+    const rows = historicalData.map((record) => {
       return (
         <tr>
           <td>{record.numberOfPeople}</td>
@@ -85,26 +95,22 @@ function App() {
       )
     });
     return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-        <th>No of Devs</th>
-        <th>BurnDown Points(Total amount of achieved story points)</th>
-        <th>Capacity</th>
-        <th>Team</th>
-        </tr>
-      </thead>
-      <tbody>
-        {rows}
-      </tbody>
-    </Table>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>No of Devs</th>
+            <th>BurnDown Points(Total amount of achieved story points)</th>
+            <th>Capacity</th>
+            <th>Team</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows}
+        </tbody>
+      </Table>
     );
   }
 
-  useEffect(() => {
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl));
-  })
 
   return (
     <div className="container">
@@ -116,6 +122,7 @@ function App() {
         <p>
           <b>Select Team</b>
         </p>
+
         <select
           id="team"
           value={team}
@@ -125,6 +132,7 @@ function App() {
           }}
           className="form-select"
         >
+          <option disabled  value="">-- Select a Team --</option>
           <option value="Batman">Batman</option>
           <option value="Joker">Joker</option>
           <option value="Thor">Thor</option>
@@ -203,10 +211,10 @@ function App() {
 
         <br />
         <div style={{ display: visible ? "block" : "none" }} >
-        <p>
+          <p>
             <b>Historical Sprint Metrics</b>
           </p>
-       {renderHistoricalDataTable()}
+          {renderHistoricalDataTable()}
         </div>
         <div>
           <p>
@@ -214,7 +222,7 @@ function App() {
           </p>
 
           <div className="mb-3">
-            <label htmlFor="PreviousSprintCapacity" className="form-label"  data-bs-toggle="tooltip" data-bs-title="Number of working days" data-bs-placement="right">
+            <label htmlFor="PreviousSprintCapacity" className="form-label" data-bs-toggle="tooltip" data-bs-title="Number of working days" data-bs-placement="right">
               Sprint Capacity:
             </label>
             <input
@@ -231,7 +239,7 @@ function App() {
             <label
               htmlFor="PreviousSprintBurnDownPoints"
               className="form-label"
-				data-bs-toggle="tooltip" data-bs-title="Total amount of achieved story points" data-bs-placement="right"
+              data-bs-toggle="tooltip" data-bs-title="Total amount of achieved story points" data-bs-placement="right"
             >
               BurnDown Points:
             </label>
@@ -265,7 +273,7 @@ function App() {
           className="btn btn-primary mb-3"
         />
       </form>
-        <div className="row">
+      <div className="row">
         <div className="col d-flex aligns-items-center justify-content-center">
           <label className="form-label sprint-velocity-label">Sprint Velocity</label>
         </div>
@@ -275,8 +283,8 @@ function App() {
           <div className="circle">{sprintVelocity}</div>
         </div>
       </div>
-      <br/>
-      <br/>
+      <br />
+      <br />
     </div>
   );
 }
