@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import dayjs from "dayjs";
 import * as config from "./config/index";
+import { Tooltip } from 'bootstrap';
 const historicalDb = require("./db/historical.json");
 
 function App() {
@@ -66,6 +67,11 @@ function App() {
       setVisible(true);
     }
   };
+
+  useEffect(() => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl));
+  })
 
   return (
     <div className="container">
@@ -169,7 +175,7 @@ function App() {
           </p>
 
           <div className="mb-3">
-            <label htmlFor="PreviousSprintCapacity" className="form-label">
+            <label htmlFor="PreviousSprintCapacity" className="form-label"  data-bs-toggle="tooltip" data-bs-title="Number of working days" data-bs-placement="right">
               Sprint Capacity:
             </label>
             <input
@@ -186,6 +192,7 @@ function App() {
             <label
               htmlFor="PreviousSprintBurnDownPoints"
               className="form-label"
+				data-bs-toggle="tooltip" data-bs-title="Total amount of achieved story points" data-bs-placement="right"
             >
               BurnDown Points:
             </label>
@@ -219,15 +226,18 @@ function App() {
           className="btn btn-primary mb-3"
         />
       </form>
+        <div className="row">
+        <div className="col d-flex aligns-items-center justify-content-center">
+          <label className="form-label sprint-velocity-label">Sprint Velocity</label>
+        </div>
+      </div>
       <div className="row">
-        <div className="col-4"></div>
-        <div className="col-4 align-center">
-          <label className="form-label sprint-velocity-label">
-            Sprint Velocity
-          </label>
+        <div className="col d-flex aligns-items-center justify-content-center">
           <div className="circle">{sprintVelocity}</div>
         </div>
       </div>
+      <br/>
+      <br/>
     </div>
   );
 }
