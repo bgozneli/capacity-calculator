@@ -12,6 +12,7 @@ const calculate = async (request) => {
   let dbLength = filteredDb.length + 1;
 
   const publicHoliday = await getPublicHolidays(new Date().getFullYear());
+  console.log(request.currentSprintStats.noOfSprintWeeks);
   const teamDaysOff = countIterationHolidays(
     request.currentSprintStats.sprintStartDate,
     request.currentSprintStats.noOfSprintWeeks,
@@ -29,7 +30,10 @@ const calculate = async (request) => {
 
   return (
     Math.round(
-      (((teamMembers * (14 - teamDaysOff.publicHolidaysCount) -
+      (((teamMembers *
+        (request.currentSprintStats.noOfSprintWeeks * 5 -
+          1 -
+          teamDaysOff.publicHolidaysCount) -
         teamDaysOff.teamVacationDaysCount) *
         bsp) /
         totalLastSprintCapacity) *
