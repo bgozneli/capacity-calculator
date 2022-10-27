@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import ReactDOM from "react-dom/client";
 import dayjs from "dayjs";
 import * as config from "./config/index";
 import { Tooltip } from 'bootstrap';
