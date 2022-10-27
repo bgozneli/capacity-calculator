@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import ReactDOM from "react-dom/client";
+import Table from 'react-bootstrap/Table';
 import dayjs from "dayjs";
 import * as config from "./config/index";
+import { Tooltip } from 'bootstrap';
 const historicalDb = require("./db/historical.json");
+const calculateCapacity = require('./services/calculateCapacity');
 
 function App() {
   const state = {
@@ -27,11 +29,12 @@ function App() {
   const [lastSprintBurnDownPoints, setLastSprintBurnDownPoints] = useState("0");
   const [lastSprintNoOfDevs, setLastSprintNoOfDevs] = useState("0");
   const [team, setTeam] = useState("Batman");
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [sprintVelocity, setSprintVelocity] = useState(0);
+  const [historicalData, setHistoricalData] = useState([]);
   useEffect(() => checkIfHistoricalDataExist(team));
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     state.currentSprintStats.noOfDevs = parseInt(noOfDevs);
     state.currentSprintStats.noOfSprintWeeks = parseInt(noOfSprintWeeks);
@@ -42,8 +45,9 @@ function App() {
     state.previousSprintStats.storyPoints = parseInt(lastSprintBurnDownPoints);
     state.previousSprintStats.numberOfPeople = parseInt(lastSprintNoOfDevs);
     state.team = team;
+    const value = await calculateCapacity(state);
     console.log(state);
-    setSprintVelocity(15);
+    setSprintVelocity(value);
   };
 
   const calculateAndSetSprintEndDate = (startDate) => {
@@ -57,26 +61,61 @@ function App() {
 
   const checkIfHistoricalDataExist = (teamName) => {
     console.log(`team value ${teamName}`);
+    const historicalRecords = historicalDb.filter((record)=> record.team === teamName);
+    setHistoricalData(historicalRecords);
     const historicalDataExists = historicalDb.find(
       (data) => data.team === teamName
     );
     if (historicalDataExists) {
-      setVisible(false);
-    } else {
       setVisible(true);
+    } else {
+      setVisible(false);
     }
   };
+
+  const renderHistoricalDataTable = ()=>{
+    const rows = historicalData.map((record)=>{
+      return (
+        <tr>
+          <td>{record.numberOfPeople}</td>
+          <td>{record.storyPoints}</td>
+          <td>{record.capacity}</td>
+          <td>{record.team}</td>
+        </tr>
+      )
+    });
+    return (
+    <Table striped bordered hover>
+      <thead>
+        <tr>
+        <th>No of Devs</th>
+        <th>BurnDown Points(Total amount of achieved story points)</th>
+        <th>Capacity</th>
+        <th>Team</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows}
+      </tbody>
+    </Table>
+    );
+  }
+
+  useEffect(() => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl));
+  })
 
   return (
     <div className="container">
       <h1>
-        <b>Capacity Calculator</b>
+        <b>Sprint Capacity Calculator</b>
       </h1>
       <br />
       <div className="mb-3">
-        <label htmlFor="team" className="form-label">
-          Select Team:
-        </label>
+        <p>
+          <b>Select Team</b>
+        </p>
         <select
           id="team"
           value={team}
@@ -163,13 +202,19 @@ function App() {
         </div>
 
         <br />
-        <div style={{ display: visible ? "block" : "none" }}>
+        <div style={{ display: visible ? "block" : "none" }} >
+        <p>
+            <b>Historical Sprint Metrics</b>
+          </p>
+       {renderHistoricalDataTable()}
+        </div>
+        <div>
           <p>
             <b>Previous Sprint Details</b>
           </p>
 
           <div className="mb-3">
-            <label htmlFor="PreviousSprintCapacity" className="form-label">
+            <label htmlFor="PreviousSprintCapacity" className="form-label"  data-bs-toggle="tooltip" data-bs-title="Number of working days" data-bs-placement="right">
               Sprint Capacity:
             </label>
             <input
@@ -186,6 +231,7 @@ function App() {
             <label
               htmlFor="PreviousSprintBurnDownPoints"
               className="form-label"
+				data-bs-toggle="tooltip" data-bs-title="Total amount of achieved story points" data-bs-placement="right"
             >
               BurnDown Points:
             </label>
@@ -219,15 +265,18 @@ function App() {
           className="btn btn-primary mb-3"
         />
       </form>
+        <div className="row">
+        <div className="col d-flex aligns-items-center justify-content-center">
+          <label className="form-label sprint-velocity-label">Sprint Velocity</label>
+        </div>
+      </div>
       <div className="row">
-        <div className="col-4"></div>
-        <div className="col-4 align-center">
-          <label className="form-label sprint-velocity-label">
-            Sprint Velocity
-          </label>
+        <div className="col d-flex aligns-items-center justify-content-center">
           <div className="circle">{sprintVelocity}</div>
         </div>
       </div>
+      <br/>
+      <br/>
     </div>
   );
 }
