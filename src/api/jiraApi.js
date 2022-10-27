@@ -9,8 +9,20 @@ const teamToBoardIdMapping = {
   Groot: 534,
 };
 
-const getBurntDownSprintInformationForTeam = async (team, sprintId) => {
+const getSprintId = async (boardId) => {
+  const { data } = await axios({
+    method: "get",
+    url: `https://jira.jsmd-group.com/rest/agile/1.0/board/${boardId}/sprint?state=active`,
+    headers: {
+      Authorization: `Bearer ${process.env.JIRA_AUTH_TOKEN}`,
+    },
+  });
+  return data.values[0].id;
+};
+
+const getBurntDownSprintInformationForTeam = async (team) => {
   const boardId = teamToBoardIdMapping[team];
+  const sprintId = await getSprintId(boardId);
   const { data } = await axios({
     method: "get",
     url: `https://jira.jsmd-group.com/rest/agile/1.0/board/${boardId}/sprint/${sprintId}/issue?maxResults=200&jql=status=done`,
