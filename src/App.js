@@ -196,7 +196,7 @@ function App() {
         </select>
       </div>
       <p>
-        <b>Current Sprint Capacity</b>
+        <b>Future Sprint Details</b>
       </p>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -273,7 +273,7 @@ function App() {
         </div>
         <div>
           <p>
-            <b>Previous Sprint Details</b>
+            <b>Current Sprint Details</b>
           </p>
 
           <div className="mb-3">
@@ -335,7 +335,7 @@ function App() {
       </div>
       <div className="row">
         <div className="col d-flex aligns-items-center justify-content-center">
-          <div className="circle">{sprintVelocity}</div>
+          <div className="circle">{Math.round(sprintVelocity,2)}</div>
         </div>
       </div>
       <br />
