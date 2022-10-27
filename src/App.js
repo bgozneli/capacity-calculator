@@ -58,10 +58,10 @@ function App() {
     setSprintVelocity(value);
   };
 
-  const calculateAndSetSprintEndDate = (startDate) => {
+  const calculateAndSetSprintEndDate = (startDate, weeks) => {
     const weekToNoOfDayMap = config.weekToNoOfDayMap;
     const endDate = dayjs(startDate)
-      .add(weekToNoOfDayMap[noOfSprintWeeks], "day")
+      .add(weekToNoOfDayMap[weeks], "day")
       .format("YYYY-MM-DD");
     state.currentSprintStats.sprintEndDate = endDate;
     setSprintEndDate(endDate);
@@ -80,7 +80,6 @@ function App() {
       setVisible(false);
     }
   };
-
 
 
   const renderHistoricalDataTable = () => {
@@ -154,8 +153,9 @@ function App() {
             value={noOfSprintWeeks}
             onChange={(e) => {
               setSprintWeeks(e.target.value);
+              
               if (sprintStartDate) {
-                calculateAndSetSprintEndDate(e.target.value);
+                calculateAndSetSprintEndDate(sprintStartDate, e.target.value);
               }
             }}
             className="form-select"
@@ -191,7 +191,7 @@ function App() {
             min="{new Date()}"
             onChange={(e) => {
               setSprintStartDate(e.target.value);
-              calculateAndSetSprintEndDate(e.target.value);
+              calculateAndSetSprintEndDate(e.target.value, noOfSprintWeeks);
             }}
           />
         </div>
