@@ -91,7 +91,7 @@ function App() {
           <option value="Thor">Thor</option>
           <option value="Loki">Loki</option>
           <option value="Groot">Groot</option>
-          <option value="CaptinMarvel">CaptinMarvel</option>
+          <option value="CaptainMarvel">CaptainMarvel</option>
         </select>
       </div>
       <p>
